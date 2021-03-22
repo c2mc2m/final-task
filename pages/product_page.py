@@ -15,7 +15,7 @@ class ProductPage(BasePage):
         self.is_added_itemname_equal_to_catalogname()
 
     def should_be_promo_url(self):
-        assert self.is_required_url("?promo=newYear"), "The current url is not 'promo' url"
+        assert self.is_required_url("?promo="), "The current url is not 'promo' url"
     
     def should_be_button_add_to_basket(self):
         assert self.is_element_present(*ProductPageLocator.ADD_TO_BASKET_BUTTON), "The ad_to_basket button is absent"
