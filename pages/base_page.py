@@ -1,4 +1,6 @@
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoAlertPresentException
+import math
 
 
 class BasePage():
@@ -23,3 +25,32 @@ class BasePage():
             return True
         else:
             return False
+
+    def get_the_value_of_element(self, locator):
+        try:
+            value = self.browser.find_element(*locator).text
+        except NoSuchElementException:
+            return "Cant find the element"
+        return value
+    
+    def value_compare(self, value1, value2):
+        v1 = self.get_the_value_of_element(value1)
+        v2 = self.get_the_value_of_element(value2)
+        if v1 == v2:
+            return True
+        else:
+            return False
+    
+    def solve_quiz_and_get_code(self):
+        alert = self.browser.switch_to.alert
+        x = alert.text.split(" ")[2]
+        answer = str(math.log(abs((12 * math.sin(float(x))))))
+        alert.send_keys(answer)
+        alert.accept()
+        try:
+            alert = self.browser.switch_to.alert
+            alert_text = alert.text
+            print(f"Your code: {alert_text}")
+            alert.accept()
+        except NoAlertPresentException:
+            print("No second alert presented")
