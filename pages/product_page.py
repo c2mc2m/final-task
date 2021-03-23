@@ -4,7 +4,6 @@ from .locators import ProductPageLocator
 
 class ProductPage(BasePage):
     def should_add_to_basket(self):
-        #self.should_be_promo_url()
         self.should_be_button_add_to_basket()
         self.go_to_basket()
 
